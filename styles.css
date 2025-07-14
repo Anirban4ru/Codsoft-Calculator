@@ -1,0 +1,594 @@
+:root {
+    --primary-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --secondary-bg: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --dark-bg: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    --number-btn: rgba(255, 255, 255, 0.15);
+    --number-btn-hover: rgba(255, 255, 255, 0.25);
+    --operator-btn: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    --operator-btn-hover: linear-gradient(135deg, #ff5252, #d63031);
+    --function-btn: linear-gradient(135deg, #74b9ff, #0984e3);
+    --function-btn-hover: linear-gradient(135deg, #54a0ff, #2d3436);
+    --equals-btn: linear-gradient(135deg, #00b894, #00a085);
+    --equals-btn-hover: linear-gradient(135deg, #00a085, #00827a);
+    --clear-btn: linear-gradient(135deg, #fd79a8, #e84393);
+    --clear-btn-hover: linear-gradient(135deg, #fd79a8, #d63031);
+    --scientific-btn: linear-gradient(135deg, #a29bfe, #6c5ce7);
+    --scientific-btn-hover: linear-gradient(135deg, #74b9ff, #0984e3);
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --text-accent: #74b9ff;
+    --text-error: #ff6b6b;
+    --text-success: #00b894;
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-xxl: 3rem;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-xxl: 25px;
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    --fs-xs: 0.75rem;
+    --fs-sm: 0.875rem;
+    --fs-md: 1rem;
+    --fs-lg: 1.125rem;
+    --fs-xl: 1.25rem;
+    --fs-xxl: 1.5rem;
+    --fs-xxxl: 2rem;
+    --fs-display: 2.5rem;
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-primary);
+    background: var(--primary-bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+    line-height: 1.6;
+    color: var(--text-primary);
+    overflow-x: hidden;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.calculator-header {
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.calculator-title {
+    font-size: var(--fs-xxxl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.calculator-subtitle {
+    font-size: var(--fs-sm);
+    color: var(--text-secondary);
+    font-weight: 300;
+    opacity: 0.8;
+}
+
+.calculator-main {
+    flex: 1;
+}
+
+.calculator-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator-body {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--radius-xxl);
+    padding: var(--spacing-xl);
+    box-shadow: var(--glass-shadow);
+    border: 1px solid var(--glass-border);
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    overflow: hidden;
+}
+
+.calculator-body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>') repeat;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.calculator-body > * {
+    position: relative;
+    z-index: 1;
+}
+
+.display-container {
+    margin-bottom: var(--spacing-lg);
+}
+
+.display-screen {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.expression-display {
+    min-height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: var(--spacing-sm);
+}
+
+.expression-text {
+    font-family: var(--font-mono);
+    font-size: var(--fs-sm);
+    color: var(--text-secondary);
+    font-weight: 400;
+    text-align: right;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+.main-display {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: var(--spacing-sm);
+}
+
+.main-text {
+    font-family: var(--font-mono);
+    font-size: var(--fs-display);
+    color: var(--text-primary);
+    font-weight: 600;
+    text-align: right;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.error-display {
+    min-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.error-text {
+    font-family: var(--font-primary);
+    font-size: var(--fs-xs);
+    color: var(--text-error);
+    font-weight: 500;
+    text-align: right;
+    animation: fadeIn var(--transition-normal);
+}
+
+.controls-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.advanced-controls {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.control-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-sm);
+    font-family: var(--font-primary);
+    font-size: var(--fs-xs);
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    backdrop-filter: blur(10px);
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.control-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-md);
+}
+
+.calc-btn {
+    background: var(--number-btn);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    font-family: var(--font-primary);
+    font-size: var(--fs-xl);
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    backdrop-filter: blur(10px);
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.calc-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width var(--transition-fast), height var(--transition-fast);
+}
+
+.calc-btn:hover::before {
+    width: 100%;
+    height: 100%;
+}
+
+.calc-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.calc-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.calc-btn:active::before {
+    width: 120%;
+    height: 120%;
+}
+
+.btn-text {
+    position: relative;
+    z-index: 2;
+    font-weight: 600;
+}
+
+.number-btn {
+    background: var(--number-btn);
+    font-family: var(--font-mono);
+}
+
+.number-btn:hover {
+    background: var(--number-btn-hover);
+}
+
+.zero-btn {
+    grid-column: span 1;
+}
+
+.operator-btn {
+    background: var(--operator-btn);
+    font-weight: 700;
+}
+
+.operator-btn:hover {
+    background: var(--operator-btn-hover);
+}
+
+.function-btn {
+    background: var(--function-btn);
+    font-weight: 600;
+}
+
+.function-btn:hover {
+    background: var(--function-btn-hover);
+}
+
+.clear-btn {
+    background: var(--clear-btn);
+    font-weight: 700;
+}
+
+.clear-btn:hover {
+    background: var(--clear-btn-hover);
+}
+
+.equals-btn {
+    background: var(--equals-btn);
+    font-weight: 700;
+    font-size: var(--fs-xxl);
+}
+
+.equals-btn:hover {
+    background: var(--equals-btn-hover);
+}
+
+.scientific-btn {
+    background: var(--scientific-btn);
+    font-weight: 600;
+    font-size: var(--fs-lg);
+}
+
+.scientific-btn:hover {
+    background: var(--scientific-btn-hover);
+}
+
+.bracket-btn {
+    background: var(--function-btn);
+    font-family: var(--font-mono);
+    font-weight: 700;
+}
+
+.bracket-btn:hover {
+    background: var(--function-btn-hover);
+}
+
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.memory-indicator {
+    display: flex;
+    align-items: center;
+    opacity: 0.3;
+    transition: opacity var(--transition-normal);
+}
+
+.memory-indicator.active {
+    opacity: 1;
+    color: var(--text-accent);
+}
+
+.memory-status {
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    font-family: var(--font-mono);
+}
+
+.mode-indicator {
+    display: flex;
+    align-items: center;
+}
+
+.mode-text {
+    font-size: var(--fs-xs);
+    font-weight: 500;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+}
+
+.calculator-footer {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+}
+
+.calculator-footer p {
+    font-size: var(--fs-xs);
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+@keyframes ripple {
+    0% { transform: scale(0); opacity: 0.6; }
+    100% { transform: scale(1); opacity: 0; }
+}
+
+.calc-btn.pressed {
+    animation: pulse 0.2s ease;
+}
+
+@media (max-width: 768px) {
+    .app-container {
+        max-width: 100%;
+        padding: var(--spacing-sm);
+    }
+
+    .calculator-body {
+        padding: var(--spacing-lg);
+    }
+
+    .display-screen {
+        padding: var(--spacing-md);
+        min-height: 100px;
+    }
+
+    .main-text {
+        font-size: var(--fs-xxxl);
+    }
+
+    .calc-btn {
+        min-height: 60px;
+        font-size: var(--fs-lg);
+    }
+
+    .equals-btn {
+        font-size: var(--fs-xl);
+    }
+
+    .button-grid {
+        gap: var(--spacing-sm);
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --fs-display: 2rem;
+        --fs-xxxl: 1.75rem;
+        --fs-xxl: 1.25rem;
+        --fs-xl: 1.125rem;
+        --fs-lg: 1rem;
+    }
+
+    .app-container {
+        gap: var(--spacing-sm);
+    }
+
+    .calculator-title {
+        font-size: var(--fs-xxl);
+    }
+
+    .calculator-body {
+        padding: var(--spacing-md);
+    }
+
+    .display-screen {
+        padding: var(--spacing-sm);
+        min-height: 80px;
+    }
+
+    .calc-btn {
+        min-height: 50px;
+        padding: var(--spacing-md);
+        font-size: var(--fs-md);
+    }
+
+    .equals-btn {
+        font-size: var(--fs-lg);
+    }
+
+    .button-grid {
+        gap: var(--spacing-xs);
+    }
+
+    .advanced-controls {
+        gap: var(--spacing-xs);
+    }
+
+    .control-btn {
+        min-height: 35px;
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .calculator-body {
+        padding: var(--spacing-sm);
+    }
+
+    .calc-btn {
+        min-height: 45px;
+        font-size: var(--fs-sm);
+    }
+
+    .main-text {
+        font-size: var(--fs-xxl);
+    }
+
+    .button-grid {
+        gap: 6px;
+    }
+}
+
+.calc-btn:focus, .control-btn:focus {
+    outline: 2px solid var(--text-accent);
+    outline-offset: 2px;
+}
+
+@media (prefers-contrast: high) {
+    :root {
+        --glass-bg: rgba(0, 0, 0, 0.8);
+        --number-btn: rgba(255, 255, 255, 0.9);
+        --text-primary: #ffffff;
+        --text-secondary: #cccccc;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-bg: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        --glass-bg: rgba(255, 255, 255, 0.05);
+        --glass-border: rgba(255, 255, 255, 0.1);
+    }
+}

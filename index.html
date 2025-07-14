@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional Modern Calculator with Advanced Functions">
+    <meta name="author" content="Your Name">
+    <meta name="keywords" content="calculator, modern, responsive, professional">
+    <title>Calculatum </title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="calculator-header">
+            <h1 class="calculator-title">Calculatum</h1>
+            <p class="calculator-subtitle">Advanced Mathematical Operations</p>
+        </header>
+        <main class="calculator-main">
+            <div class="calculator-wrapper">
+                <div class="calculator-body">
+                    <section class="display-container">
+                        <div class="display-screen">
+                            <div class="expression-display" id="expressionDisplay">
+                                <span class="expression-text"></span>
+                            </div>
+                            <div class="main-display" id="mainDisplay">
+                                <span class="main-text">0</span>
+                            </div>
+                            <div class="error-display" id="errorDisplay">
+                                <span class="error-text"></span>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="controls-container">
+                        <div class="advanced-controls">
+                            <button class="control-btn memory-btn" data-action="memory-clear" title="Clear Memory">
+                                <span class="btn-icon">MC</span>
+                            </button>
+                            <button class="control-btn memory-btn" data-action="memory-recall" title="Recall Memory">
+                                <span class="btn-icon">MR</span>
+                            </button>
+                            <button class="control-btn memory-btn" data-action="memory-add" title="Add to Memory">
+                                <span class="btn-icon">M+</span>
+                            </button>
+                            <button class="control-btn memory-btn" data-action="memory-subtract" title="Subtract from Memory">
+                                <span class="btn-icon">M-</span>
+                            </button>
+                        </div>
+                        <div class="button-grid">
+                            <button class="calc-btn clear-btn" data-action="all-clear" title="Clear All">
+                                <span class="btn-text">AC</span>
+                            </button>
+                            <button class="calc-btn clear-btn" data-action="clear" title="Clear Entry">
+                                <span class="btn-text">C</span>
+                            </button>
+                            <button class="calc-btn function-btn" data-action="backspace" title="Backspace">
+                                <span class="btn-text">⌫</span>
+                            </button>
+                            <button class="calc-btn operator-btn" data-action="divide" title="Division">
+                                <span class="btn-text">÷</span>
+                            </button>
+                            <button class="calc-btn number-btn" data-number="7" title="Seven">
+                                <span class="btn-text">7</span>
+                            </button>
+                            <button class="calc-btn number-btn" data-number="8" title="Eight">
+                                <span class="btn-text">8</span>
+                            </button>
+                            <button class="calc-btn number-btn" data-number="9" title="Nine">
+                                <span class="btn-text">9</span>
+                            </button>
+                            <button class="calc-btn operator-btn" data-action="multiply" title="Multiplication">
+                                <span class="btn-text">×</span>
+                            </button>
+                            <button class="calc-btn number-btn" data-number="4" title="Four">
+                                <span class="btn-text">4</span>
+                            </button>
+                            <button class="calc-btn number-btn" data-number="5" title="Five">
+                                <span class="btn-text">5</span>
+                            </button>
+                            <button class="calc-btn number-btn" data-number="6" title="Six">
+                                <span class="btn-text">6</span>
+                            </button>
+                            <button class="calc-btn operator-btn" data-action="subtract" title="Subtraction">
+                                <span class="btn-text">-</span>
+                            </button>
+                            <button class="calc-btn number-btn" data-number="1" title="One">
+                                <span class="btn-text">1</span>
+                            </button>
+                            <button class="calc-btn number-btn" data-number="2" title="Two">
+                                <span class="btn-text">2</span>
+                            </button>
+                            <button class="calc-btn number-btn" data-number="3" title="Three">
+                                <span class="btn-text">3</span>
+                            </button>
+                            <button class="calc-btn operator-btn add-btn" data-action="add" title="Addition">
+                                <span class="btn-text">+</span>
+                            </button>
+                            <button class="calc-btn function-btn" data-action="sign-toggle" title="Toggle Sign">
+                                <span class="btn-text">±</span>
+                            </button>
+                            <button class="calc-btn number-btn zero-btn" data-number="0" title="Zero">
+                                <span class="btn-text">0</span>
+                            </button>
+                            <button class="calc-btn function-btn" data-action="decimal" title="Decimal Point">
+                                <span class="btn-text">.</span>
+                            </button>
+                            <button class="calc-btn equals-btn" data-action="calculate" title="Calculate Result">
+                                <span class="btn-text">=</span>
+                            </button>
+                            <button class="calc-btn scientific-btn" data-action="square-root" title="Square Root">
+                                <span class="btn-text">√</span>
+                            </button>
+                            <button class="calc-btn scientific-btn" data-action="exponent" title="Exponent/Power">
+                                <span class="btn-text">x²</span>
+                            </button>
+                            <button class="calc-btn scientific-btn" data-action="modulus" title="Modulus">
+                                <span class="btn-text">%</span>
+                            </button>
+                            <button class="calc-btn scientific-btn" data-action="fraction" title="Fraction (1/x)">
+                                <span class="btn-text">1/x</span>
+                            </button>
+                            <button class="calc-btn bracket-btn" data-action="open-bracket" title="Open Bracket">
+                                <span class="btn-text">(</span>
+                            </button>
+                            <button class="calc-btn bracket-btn" data-action="close-bracket" title="Close Bracket">
+                                <span class="btn-text">)</span>
+                            </button>
+                            <button class="calc-btn scientific-btn" data-action="pi" title="Pi Constant">
+                                <span class="btn-text">π</span>
+                            </button>
+                            <button class="calc-btn scientific-btn" data-action="euler" title="Euler's Number">
+                                <span class="btn-text">e</span>
+                            </button>
+                        </div>
+                    </section>
+                    <div class="status-bar">
+                        <div class="memory-indicator" id="memoryIndicator">
+                            <span class="memory-status">M</span>
+                        </div>
+                        <div class="mode-indicator">
+                            <span class="mode-text">DEG</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="calculator-footer">
+            <p>&copy; 2025 Calculatum. Built with HTML5, CSS3 & JavaScript</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
