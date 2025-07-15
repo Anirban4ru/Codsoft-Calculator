@@ -1,5 +1,3 @@
-// Fully Working JavaScript (script.js) for Advanced Calculator
-
 const mainDisplay = document.getElementById("mainDisplay").querySelector(".main-text");
 const expressionDisplay = document.getElementById("expressionDisplay").querySelector(".expression-text");
 const errorDisplay = document.getElementById("errorDisplay").querySelector(".error-text");
